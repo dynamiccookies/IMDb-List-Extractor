@@ -38,7 +38,7 @@
 				border-color: red;
 				background-color: red;
 			}
-			div {
+			div#container {
 				border: 5px solid darkgray;
 				border-radius: 25px;
 				padding: 5px 5px 10px 10px;
@@ -49,9 +49,33 @@
 				background: lightgray;
 			}		
 		</style>
+		<script>
+			/* Function called when Copy to Clipboard button clicked */
+			function copyToClipboard(el) {
+				var body = document.body, range, sel;
+				if (document.createRange && window.getSelection) {
+					range = document.createRange();
+					sel = window.getSelection();
+					sel.removeAllRanges();
+					try {
+						range.selectNodeContents(el);
+						sel.addRange(range);
+					} catch (e) {
+						range.selectNode(el);
+						sel.addRange(range);
+					}
+					document.execCommand('copy');
+				} else if (body.createTextRange) {
+					range = body.createTextRange();
+					range.moveToElementText(el);
+					range.select();
+					range.execCommand('copy');
+				}
+			}
+		</script>
     </head>
     <body>
-    	<div>
+    	<div id='container'>
     		<h1>IMDb Movie List Extractor</h1>
     		<p>This page will extract the list of IDs from any <a href='https://www.imdb.com/list/ls068082370/' target='_blank' title='Top 250 Movies'>IMDb movie list</a>.<br> 
     		    The list can then be copied and saved to a text file and imported into Couchpotato.<br>
@@ -59,12 +83,17 @@
     		<form name='form1' method='post' action=''>
     			<label for='listURL'>List URL:</label> <input type='text' name='listURL'>
     			<input type='Submit' name='extract' value='Extract'>
+				<?php if (!$error && isset($_POST['extract'])) {?>
+					<button onclick='copyToClipboard(document.getElementById("results")); return false;'>Copy to Clipboard</button>
+				<?php }?>
     		</form>
     		<?php 
     			if ($error) {print ('<hr /><br /><font color=red>ERROR: </font>' . $error . '<br>');}
     			else {
     			    if ($results[1][0]) {print ("<hr />\n<strong><a href='" . $list . "' target='_blank'>" . $title[1][0] . '</a> (' . count($results[1]) . ')</strong><br>');}
+					print '<div id="results">';
     				foreach ($results[1] as $movie) {print ("\n" . $movie . '<br>');}
+					print '</div>';
     			}
     		?>
     	</div>
