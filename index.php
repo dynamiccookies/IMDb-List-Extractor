@@ -8,7 +8,7 @@
 	
 	if (isset($_POST['extract'])) {
 		$list = $_POST['listURL'];
-		file_put_contents('history.log',date('Y-m-d H:i:s') . ',' . $_SERVER['REMOTE_ADDR'] . ',' . $list . " \n",FILE_APPEND);
+		file_put_contents('history.log',date('Y-m-d H:i:s') . ',' . $list . " \n",FILE_APPEND);
 		$test = preg_match('/https?:\/\/www.imdb.com\/list\//i',$list);
 
 		if ($test == 0 || $test == false) {
