@@ -53,7 +53,7 @@
     <body>
     	<div>
     		<h1>IMDb Movie List Extractor</h1>
-    		<p>This page will extract the list of IDs from any <a href='https://www.imdb.com/list/ls068082370/' target='_blank'>IMDb movie list</a>.<br> 
+    		<p>This page will extract the list of IDs from any <a href='https://www.imdb.com/list/ls068082370/' target='_blank' title='Top 250 Movies'>IMDb movie list</a>.<br> 
     		    The list can then be copied and saved to a text file and imported into Couchpotato.<br>
     		    Use the <a href='https://couchpota.to/forum/viewtopic.php?f=17&t=4070' target='_blank'>Couchpotato Wanted List Backup and Restore script</a>.</p>
     		<form name='form1' method='post' action=''>
